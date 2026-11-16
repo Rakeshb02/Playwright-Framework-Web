@@ -1,0 +1,100 @@
+{
+  "validUsers": [
+    {
+      "id": "valid_user_1",
+      "title": "User 1 - Primary Automator",
+      "email": "playwright.testuser.pw@test.com",
+      "password": "Password123!",
+      "firstName": "Playwright",
+      "lastName": "Automator",
+      "tags": ["smoke", "auth", "positive", "user-1"],
+      "description": "Valid login validation for registered primary automator account: playwright.testuser.pw@test.com."
+    },
+    {
+      "id": "valid_user_2",
+      "title": "User 2 - Quality Analyst",
+      "email": "playwright.testuser2.pw@test.com",
+      "password": "Password123!",
+      "firstName": "Jane",
+      "lastName": "Analyst",
+      "tags": ["smoke", "auth", "positive", "user-2"],
+      "description": "Valid login validation for registered QA analyst account: playwright.testuser2.pw@test.com."
+    },
+    {
+      "id": "valid_user_3",
+      "title": "User 3 - Test Engineer",
+      "email": "playwright.testuser3.pw@test.com",
+      "password": "Password123!",
+      "firstName": "Alex",
+      "lastName": "Engineer",
+      "tags": ["smoke", "auth", "positive", "user-3"],
+      "description": "Valid login validation for registered test engineer account: playwright.testuser3.pw@test.com."
+    },
+    {
+      "id": "valid_user_4",
+      "title": "User 4 - Standard Shopper",
+      "email": "playwright.testuser4.pw@test.com",
+      "password": "Password123!",
+      "firstName": "Sam",
+      "lastName": "Shopper",
+      "tags": ["smoke", "auth", "positive", "user-4"],
+      "description": "Valid login validation for standard shopper account: playwright.testuser4.pw@test.com."
+    }
+  ],
+  "invalidUsers": [
+    {
+      "id": "invalid_user_1",
+      "scenario": "Case 1 - Unregistered Email Account",
+      "email": "unregistered.user1.pw@test.com",
+      "password": "Password123!",
+      "expectedError": "Login was unsuccessful",
+      "tags": ["regression", "auth", "negative", "case-1"],
+      "description": "Negative login validation using unregistered email account: unregistered.user1.pw@test.com."
+    },
+    {
+      "id": "invalid_user_2",
+      "scenario": "Case 2 - Incorrect Password for Valid User",
+      "email": "playwright.testuser.pw@test.com",
+      "password": "WrongPassword999!",
+      "expectedError": "Login was unsuccessful",
+      "tags": ["regression", "auth", "negative", "case-2"],
+      "description": "Negative login validation using incorrect password for registered user: playwright.testuser.pw@test.com."
+    },
+    {
+      "id": "invalid_user_3",
+      "scenario": "Case 3 - Non-existent Random Account",
+      "email": "nonexistent.account.xyz@test.com",
+      "password": "Password123!",
+      "expectedError": "Login was unsuccessful",
+      "tags": ["regression", "auth", "negative", "case-3"],
+      "description": "Negative login validation using non-existent random account: nonexistent.account.xyz@test.com."
+    },
+    {
+      "id": "invalid_user_4",
+      "scenario": "Case 4 - Empty Password with Valid Email",
+      "email": "playwright.testuser2.pw@test.com",
+      "password": "InvalidSecretPassword123!",
+      "expectedError": "Login was unsuccessful",
+      "tags": ["regression", "auth", "negative", "case-4"],
+      "description": "Negative login validation using invalid password with valid email: playwright.testuser2.pw@test.com."
+    }
+  ],
+  "validUser": {
+    "email": "playwright.testuser.pw@test.com",
+    "password": "Password123!",
+    "firstName": "Playwright",
+    "lastName": "Automator"
+  },
+  "invalidUser": {
+    "email": "nonexistent.user.pw@test.com",
+    "password": "WrongPassword999!"
+  },
+  "newUserTemplate": {
+    "gender": "male",
+    "firstName": "John",
+    "lastName": "Doe",
+    "password": "Password123!",
+    "tags": ["smoke", "auth", "registration"],
+    "description": "Verify that a new user can register with unique dynamic credentials and is immediately authenticated."
+  }
+}

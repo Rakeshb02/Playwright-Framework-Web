@@ -1,0 +1,97 @@
+{
+  "scenarios": [
+    {
+      "id": "order_3_products",
+      "testCaseName": "Three Products Checkout",
+      "tags": ["regression", "e2e", "checkout", "3-products", "data-driven"],
+      "description": "Authenticated multi-product checkout: purchasing 3 books (Computing and Internet, Fiction, Health Book) with California billing address.",
+      "products": [
+        {
+          "id": "item_1",
+          "name": "Computing and Internet",
+          "category": "Books",
+          "unitPrice": 10.00
+        },
+        {
+          "id": "item_2",
+          "name": "Fiction",
+          "category": "Books",
+          "unitPrice": 24.00
+        },
+        {
+          "id": "item_3",
+          "name": "Health Book",
+          "category": "Books",
+          "unitPrice": 10.00
+        }
+      ],
+      "billingAddress": {
+        "country": "United States",
+        "state": "California",
+        "city": "San Jose",
+        "address1": "100 Innovation Way",
+        "postalCode": "95112",
+        "phoneNumber": "4085551234"
+      },
+      "shippingMethod": "Ground",
+      "paymentMethod": "Cash On Delivery (COD)",
+      "orderConfirmationMessage": "Your order has been successfully processed!"
+    },
+    {
+      "id": "order_1_product",
+      "testCaseName": "Single Product Checkout",
+      "tags": ["smoke", "regression", "e2e", "checkout", "1-product", "data-driven"],
+      "description": "Authenticated single-product checkout: purchasing 1 book (Computing and Internet) with New York billing address.",
+      "products": [
+        {
+          "id": "item_1",
+          "name": "Computing and Internet",
+          "category": "Books",
+          "unitPrice": 10.00
+        }
+      ],
+      "billingAddress": {
+        "country": "United States",
+        "state": "New York",
+        "city": "New York",
+        "address1": "350 5th Avenue",
+        "postalCode": "10118",
+        "phoneNumber": "2125555678"
+      },
+      "shippingMethod": "Ground",
+      "paymentMethod": "Cash On Delivery (COD)",
+      "orderConfirmationMessage": "Your order has been successfully processed!"
+    },
+    {
+      "id": "order_2_products",
+      "testCaseName": "Two Products Checkout",
+      "tags": ["regression", "e2e", "checkout", "2-products", "data-driven"],
+      "description": "Authenticated two-product checkout: purchasing 2 books (Fiction, Health Book) with Texas billing address.",
+      "products": [
+        {
+          "id": "item_2",
+          "name": "Fiction",
+          "category": "Books",
+          "unitPrice": 24.00
+        },
+        {
+          "id": "item_3",
+          "name": "Health Book",
+          "category": "Books",
+          "unitPrice": 10.00
+        }
+      ],
+      "billingAddress": {
+        "country": "United States",
+        "state": "Texas",
+        "city": "Austin",
+        "address1": "500 Congress Avenue",
+        "postalCode": "78701",
+        "phoneNumber": "5125559876"
+      },
+      "shippingMethod": "Ground",
+      "paymentMethod": "Cash On Delivery (COD)",
+      "orderConfirmationMessage": "Your order has been successfully processed!"
+    }
+  ]
+}

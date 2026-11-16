@@ -1,0 +1,51 @@
+{
+  "searchProducts": [
+    {
+      "id": "prod_1",
+      "name": "Computing and Internet",
+      "category": "Books",
+      "keyword": "Computing and Internet",
+      "tags": ["smoke", "catalog", "search", "prod-1"],
+      "description": "Data-driven catalog search validation for book product: Computing and Internet."
+    },
+    {
+      "id": "prod_2",
+      "name": "Fiction",
+      "category": "Books",
+      "keyword": "Fiction",
+      "tags": ["smoke", "catalog", "search", "prod-2"],
+      "description": "Data-driven catalog search validation for book product: Fiction."
+    },
+    {
+      "id": "prod_3",
+      "name": "Health Book",
+      "category": "Books",
+      "keyword": "Health Book",
+      "tags": ["smoke", "catalog", "search", "prod-3"],
+      "description": "Data-driven catalog search validation for health book product: Health Book."
+    },
+    {
+      "id": "prod_4",
+      "name": "Smartphone",
+      "category": "Electronics",
+      "keyword": "Smartphone",
+      "tags": ["smoke", "catalog", "search", "prod-4"],
+      "description": "Data-driven catalog search validation for electronic product: Smartphone."
+    },
+    {
+      "id": "prod_5",
+      "name": "Blue Jeans",
+      "category": "Apparel & Shoes",
+      "keyword": "Blue Jeans",
+      "tags": ["smoke", "catalog", "search", "prod-5"],
+      "description": "Data-driven catalog search validation for apparel product: Blue Jeans."
+    }
+  ],
+  "searchKeyword": "Computing and Internet",
+  "category": "Books",
+  "bookProduct": {
+    "name": "Computing and Internet",
+    "category": "Books",
+    "unitPrice": 10.00
+  }
+}

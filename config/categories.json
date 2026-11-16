@@ -1,0 +1,22 @@
+[
+  {
+    "name": "Product Defects",
+    "matchedStatuses": ["failed"],
+    "messageRegex": ".*expect.*"
+  },
+  {
+    "name": "Locator / Element Issues",
+    "matchedStatuses": ["broken", "failed"],
+    "messageRegex": ".*locator.*"
+  },
+  {
+    "name": "Timeouts",
+    "matchedStatuses": ["broken"],
+    "messageRegex": ".*Timeout.*"
+  },
+  {
+    "name": "Infrastructure / Network Issues",
+    "matchedStatuses": ["broken"],
+    "messageRegex": ".*(net::|Navigation|ECONNREFUSED).*"
+  }
+]

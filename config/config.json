@@ -1,0 +1,7 @@
+{
+  "baseUrl": "https://demowebshop.tricentis.com",
+  "defaultTimeout": 30000,
+  "actionTimeout": 10000,
+  "navigationTimeout": 20000,
+  "headless": true
+}
