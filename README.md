@@ -93,6 +93,13 @@ playwright_web_framework/
 
 ---
 
+## Allure Report
+
+ <img width="1439" height="667" alt="image" src="https://github.com/user-attachments/assets/5c655818-eebd-4efb-8d95-926d97b55e52" />
+
+ <img width="1437" height="663" alt="image" src="https://github.com/user-attachments/assets/c4b3f619-879c-499e-a3e6-6a2f61296226" />
+
+
 ## 📊 Viewing Reports
 
 ### Allure Report
