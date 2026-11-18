@@ -31,9 +31,10 @@ test.describe('Sales & Checkout', () => {
           });
 
           await test.step(`Step 3: Search and add ${scenario.products.length} product(s) to cart`, async () => {
-            for (const product of scenario.products) {
+            for (const [pIndex, product] of scenario.products.entries()) {
               await homePage.search(product.name);
               await catalogPage.addProductToCartByName(product.name);
+              await homePage.waitForCartQuantity(pIndex + 1);
             }
           });
 

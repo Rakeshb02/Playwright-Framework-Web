@@ -22,21 +22,29 @@ export class CatalogPage extends BasePage {
   }
 
   async getProductTitles(): Promise<string[]> {
-    await this.productItems.first().waitFor({ state: 'visible' });
+    await this.waitForElementState(this.productItems.first(), 'visible');
     return await this.productItems.locator('.product-title a').allInnerTexts();
   }
 
   async addProductToCartByName(productName: string): Promise<void> {
     await test.step(`Add product "${productName}" to cart from catalog`, async () => {
       const productCard = this.productItems.filter({ hasText: productName }).first();
-      await productCard.waitFor({ state: 'visible' });
+      await this.waitForElementState(productCard, 'visible');
       const addToCartBtn = productCard.getByRole('button', { name: 'Add to cart' });
-      await addToCartBtn.click();
-      await this.notificationBar.waitFor({ state: 'visible' });
+
+      // Wait for backend cart API response when adding product
+      await this.waitForApiResponse(
+        (response) => response.url().includes('addproducttocart') && response.status() === 200,
+        async () => {
+          await addToCartBtn.click();
+        }
+      );
+
+      await this.waitForElementState(this.notificationBar, 'visible');
       if (await this.isElementVisible(this.notificationCloseButton)) {
         await this.notificationCloseButton.click();
       }
-      await this.notificationBar.waitFor({ state: 'hidden', timeout: 5000 }).catch(() => {});
+      await this.waitForElementState(this.notificationBar, 'hidden', 5000).catch(() => {});
     });
   }
 

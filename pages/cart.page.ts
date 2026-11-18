@@ -1,5 +1,6 @@
 import { Locator, Page } from '@playwright/test';
 import { BasePage } from './base.page';
+import { PollHelper } from '@utils/poll-helper';
 
 export class CartPage extends BasePage {
   private readonly pageTitle: Locator;
@@ -35,6 +36,16 @@ export class CartPage extends BasePage {
         await this.check(this.removeCheckboxes.nth(i), `Remove from cart checkbox #${i + 1}`);
       }
       await this.click(this.updateCartButton, 'Update shopping cart button');
+
+      // Poll until all cart items are removed and table is empty
+      await PollHelper.pollCondition(
+        async () => (await this.removeCheckboxes.count()) === 0,
+        {
+          timeoutMs: 10000,
+          intervalMs: 500,
+          message: 'Cart items were not cleared within the timeout period',
+        }
+      );
     }
   }
 

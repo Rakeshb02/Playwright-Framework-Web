@@ -48,7 +48,7 @@ export default defineConfig({
       testMatch: /.*\.setup\.ts/,
     },
 
-    // 2. Authenticated Tests (uses cached storageState)
+    // 2. Chromium (Desktop Chrome)
     {
       name: 'chromium-authenticated',
       dependencies: ['setup'],
@@ -58,13 +58,49 @@ export default defineConfig({
       },
       testIgnore: [/.*\.setup\.ts/, /.*\/auth\/.*/],
     },
-
-    // 3. Standalone Unauthenticated Tests (Login, Register flows)
     {
       name: 'chromium-unauthenticated',
       dependencies: ['setup'],
       use: {
         ...devices['Desktop Chrome'],
+      },
+      testMatch: [/.*\/auth\/.*/],
+    },
+
+    // 3. Firefox (Desktop Firefox)
+    {
+      name: 'firefox-authenticated',
+      dependencies: ['setup'],
+      use: {
+        ...devices['Desktop Firefox'],
+        storageState: authFile,
+      },
+      testIgnore: [/.*\.setup\.ts/, /.*\/auth\/.*/],
+    },
+    {
+      name: 'firefox-unauthenticated',
+      dependencies: ['setup'],
+      use: {
+        ...devices['Desktop Firefox'],
+      },
+      testMatch: [/.*\/auth\/.*/],
+    },
+
+    // 4. WebKit (Desktop Safari)
+    {
+      name: 'webkit-authenticated',
+      dependencies: ['setup'],
+      use: {
+        ...devices['Desktop Safari'],
+        storageState: authFile,
+      },
+      testIgnore: [/.*\.setup\.ts/, /.*\/auth\/.*/],
+    },
+    {
+      name: 'webkit-unauthenticated',
+      dependencies: ['setup'],
+      use: {
+        ...devices['Desktop Safari'],
       },
       testMatch: [/.*\/auth\/.*/],
     },

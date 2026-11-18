@@ -39,6 +39,7 @@ export class RegisterPage extends BasePage {
 
   async open(): Promise<void> {
     await this.navigateTo('/register');
+    await this.waitForPageLoad('domcontentloaded');
   }
 
   async registerUser(data: RegistrationData): Promise<void> {
@@ -54,6 +55,7 @@ export class RegisterPage extends BasePage {
     await this.fill(this.passwordInput, data.password, 'Password input');
     await this.fill(this.confirmPasswordInput, data.password, 'Confirm Password input');
     await this.click(this.registerButton, 'Register button');
+    await this.waitForPageLoad('domcontentloaded');
   }
 
   async getSuccessMessage(): Promise<string> {
@@ -62,6 +64,7 @@ export class RegisterPage extends BasePage {
 
   async clickContinue(): Promise<void> {
     await this.click(this.continueButton, 'Register Continue button');
+    await this.waitForPageLoad('domcontentloaded');
   }
 
   // --- Locator Accessors for Web-First Assertions ---

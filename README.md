@@ -31,8 +31,10 @@ playwright_web_framework/
 ├── fixtures/
 │   └── test.fixture.ts           # Custom test.extend injecting all Page Objects
 ├── pages/                        # Strict Page Object Model (private elements)
-│   ├── base.page.ts              # BasePage with resilient action wrappers
+│   ├── base.page.ts              # BasePage with resilient action and explicit wait wrappers
 │   ├── home.page.ts              # Home page actions, search, navigation
+├── plan/
+│   └── framework-enhancement-plan.md # Architectural enhancement roadmap and best practices
 │   ├── login.page.ts             # Login page locators and actions
 │   ├── register.page.ts          # Registration page form and validation
 │   ├── catalog.page.ts           # Category and search results listing
@@ -54,7 +56,8 @@ playwright_web_framework/
 │       └── checkout.spec.ts      # 3 Data-driven checkout tests (3, 1, 2 products)
 ├── utils/
 │   ├── data-helper.ts            # Dynamic test data generator
-│   └── allure-helper.ts          # Typed Allure metadata helper
+│   ├── allure-helper.ts          # Typed Allure metadata helper
+│   └── poll-helper.ts            # Asynchronous condition polling helper
 ├── package.json
 ├── playwright.config.ts          # Central test runner configuration & project matrix
 ├── tsconfig.json                 # TypeScript compiler configuration with path aliases
@@ -64,6 +67,14 @@ playwright_web_framework/
 ---
 
 ## 🧪 Running Tests
+
+### Browser & Cross-Browser Execution
+| Command | Description |
+| :--- | :--- |
+| `npm test` or `npm run test:chromium` | Run test suite in Chromium (Desktop Chrome) |
+| `npm run test:firefox` | Run test suite in Mozilla Firefox (Desktop Firefox) |
+| `npm run test:webkit` | Run test suite in WebKit (Desktop Safari) |
+| `npm run test:cross-browser` | Run full test suite across all 3 browsers simultaneously |
 
 ### Tag-Based Execution
 | Command | Description |
