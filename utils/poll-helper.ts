@@ -1,13 +1,15 @@
+import { envConfig } from '@config/env.config';
+
 export interface PollOptions {
   /**
    * Total timeout in milliseconds before throwing an error.
-   * @default 10000 (10 seconds)
+   * @default envConfig.pollingTimeout (10000ms)
    */
   timeoutMs?: number;
 
   /**
    * Interval in milliseconds between poll attempts.
-   * @default 1000 (1 second)
+   * @default envConfig.pollingInterval (250ms)
    */
   intervalMs?: number;
 
@@ -49,8 +51,8 @@ export class PollHelper {
     options: PollOptions = {}
   ): Promise<T> {
     const {
-      timeoutMs = 10000,
-      intervalMs = 1000,
+      timeoutMs = envConfig.pollingTimeout,
+      intervalMs = envConfig.pollingInterval,
       message = 'Condition was not met within the timeout period.',
       suppressErrors = true,
     } = options;

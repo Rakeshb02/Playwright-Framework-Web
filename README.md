@@ -104,6 +104,23 @@ playwright_web_framework/
 
 ---
 
+## 🛡️ Resilience & Explicit Waiting Engine
+
+To eliminate flakiness caused by asynchronous UI and network delays (such as AJAX cart updates and accordion animations), the framework employs a two-tier resilience strategy:
+
+1. **`PollHelper` (Eventual Consistency Polling)**:
+   - Located at `utils/poll-helper.ts`.
+   - Repeatedly polls DOM state (`PollHelper.pollUntil` / `PollHelper.pollCondition`) with configurable intervals and timeouts (centralized in `config.json` with `POLLING_TIMEOUT` / `POLLING_INTERVAL` env overrides).
+   - Eliminates race conditions when waiting for dynamic elements like the top navigation cart quantity badge (`#topcartlink .cart-qty`) to reflect backend state without full page reloads.
+
+2. **`BasePage` Explicit Synchronization**:
+   - `waitForApiResponse(urlPattern, status)`: Confirms backend AJAX requests finish before DOM assertions.
+   - `waitForSpinnerToDisappear(locator)`: Waits for checkout loading overlays to detach.
+   - `waitForNetworkIdle()`: Ensures network quiescence during heavy transitions.
+   - `waitForElementState(locator, state)`: Explicitly waits for `'visible'`, `'hidden'`, `'attached'`, or `'editable'`.
+
+---
+
 ## Allure Report
 
  <img width="1439" height="667" alt="image" src="https://github.com/user-attachments/assets/5c655818-eebd-4efb-8d95-926d97b55e52" />

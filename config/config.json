@@ -3,5 +3,7 @@
   "defaultTimeout": 30000,
   "actionTimeout": 10000,
   "navigationTimeout": 20000,
+  "pollingTimeout": 10000,
+  "pollingInterval": 250,
   "headless": true
 }

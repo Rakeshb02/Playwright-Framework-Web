@@ -7,6 +7,10 @@ export const envConfig = {
   actionTimeout: Number(process.env.ACTION_TIMEOUT) || configData.actionTimeout,
   navigationTimeout:
     Number(process.env.NAV_TIMEOUT) || configData.navigationTimeout,
+  pollingTimeout:
+    Number(process.env.POLLING_TIMEOUT) || configData.pollingTimeout,
+  pollingInterval:
+    Number(process.env.POLLING_INTERVAL) || configData.pollingInterval,
   isHeadless: process.env.HEADLESS
     ? process.env.HEADLESS !== "false"
     : configData.headless,
