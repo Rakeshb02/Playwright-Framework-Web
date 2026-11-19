@@ -47,13 +47,15 @@ playwright_web_framework/
 ├── fixtures/
 │   └── test.fixture.ts           # Playwright test.extend injecting Page Objects
 ├── pages/                        # Strict Page Object Model classes
-│   ├── base.page.ts              # Abstract base class with resilient action wrappers
+│   ├── base.page.ts              # Abstract base class with action and explicit wait wrappers
 │   ├── cart.page.ts              # Shopping cart operations and terms validation
 │   ├── catalog.page.ts           # Product listings, category navigation, catalog actions
 │   ├── checkout.page.ts          # Accordion-based checkout step handlers
 │   ├── home.page.ts              # Header, footer, global search, and navigation
 │   ├── login.page.ts             # Login form locators and authentication action
 │   └── register.page.ts          # Registration form inputs and account creation
+├── plan/
+│   └── framework-enhancement-plan.md # Strategic framework evolution and enhancement roadmap
 ├── test-data/                    # Decoupled static JSON test data store
 │   ├── checkout.json             # Multi-scenario order data with dedicated addresses
 │   ├── products.json             # Search queries and catalog validation data
@@ -70,7 +72,8 @@ playwright_web_framework/
 │       └── checkout.spec.ts      # Multi-item authenticated purchase checkout flows
 ├── utils/
 │   ├── allure-helper.ts          # Declarative Allure metadata helper
-│   └── data-helper.ts            # Dynamic data generators (Faker/timestamp emails)
+│   ├── data-helper.ts            # Dynamic data generators (Faker/timestamp emails)
+│   └── poll-helper.ts            # Generic asynchronous polling & retry helper
 ├── AGENT_CONTEXT.md              # THIS FILE - Single source of truth for agents
 ├── PLAYWRIGHT_POM_GUIDELINES.md  # Standard POM and MCP operating guidelines
 ├── README.md                     # Framework overview and CLI documentation
@@ -242,8 +245,14 @@ Apply tags to tests using `allure.tags(...)` or inside test titles/options:
 
 ### Execution Commands
 ```bash
-# Run all tests
+# Run all tests (Chromium default)
 npm test
+
+# Browser-specific execution
+npm run test:chromium
+npm run test:firefox
+npm run test:webkit
+npm run test:cross-browser
 
 # Tag-based execution
 npm run test:smoke

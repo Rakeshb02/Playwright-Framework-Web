@@ -31,8 +31,10 @@ playwright_web_framework/
 ├── fixtures/
 │   └── test.fixture.ts           # Custom test.extend injecting all Page Objects
 ├── pages/                        # Strict Page Object Model (private elements)
-│   ├── base.page.ts              # BasePage with resilient action wrappers
+│   ├── base.page.ts              # BasePage with resilient action and explicit wait wrappers
 │   ├── home.page.ts              # Home page actions, search, navigation
+├── plan/
+│   └── framework-enhancement-plan.md # Architectural enhancement roadmap and best practices
 │   ├── login.page.ts             # Login page locators and actions
 │   ├── register.page.ts          # Registration page form and validation
 │   ├── catalog.page.ts           # Category and search results listing
@@ -54,7 +56,8 @@ playwright_web_framework/
 │       └── checkout.spec.ts      # 3 Data-driven checkout tests (3, 1, 2 products)
 ├── utils/
 │   ├── data-helper.ts            # Dynamic test data generator
-│   └── allure-helper.ts          # Typed Allure metadata helper
+│   ├── allure-helper.ts          # Typed Allure metadata helper
+│   └── poll-helper.ts            # Asynchronous condition polling helper
 ├── package.json
 ├── playwright.config.ts          # Central test runner configuration & project matrix
 ├── tsconfig.json                 # TypeScript compiler configuration with path aliases
@@ -64,6 +67,14 @@ playwright_web_framework/
 ---
 
 ## 🧪 Running Tests
+
+### Browser & Cross-Browser Execution
+| Command | Description |
+| :--- | :--- |
+| `npm test` or `npm run test:chromium` | Run test suite in Chromium (Desktop Chrome) |
+| `npm run test:firefox` | Run test suite in Mozilla Firefox (Desktop Firefox) |
+| `npm run test:webkit` | Run test suite in WebKit (Desktop Safari) |
+| `npm run test:cross-browser` | Run full test suite across all 3 browsers simultaneously |
 
 ### Tag-Based Execution
 | Command | Description |
@@ -90,6 +101,23 @@ playwright_web_framework/
 | `npm run test:failed` | Re-run only tests that failed in the previous run |
 | `npm run test:ci` | Run in CI mode with retries enabled |
 | `npm run typecheck` | Run TypeScript strict type verification (`tsc --noEmit`) |
+
+---
+
+## 🛡️ Resilience & Explicit Waiting Engine
+
+To eliminate flakiness caused by asynchronous UI and network delays (such as AJAX cart updates and accordion animations), the framework employs a two-tier resilience strategy:
+
+1. **`PollHelper` (Eventual Consistency Polling)**:
+   - Located at `utils/poll-helper.ts`.
+   - Repeatedly polls DOM state (`PollHelper.pollUntil` / `PollHelper.pollCondition`) with configurable intervals and timeouts (centralized in `config.json` with `POLLING_TIMEOUT` / `POLLING_INTERVAL` env overrides).
+   - Eliminates race conditions when waiting for dynamic elements like the top navigation cart quantity badge (`#topcartlink .cart-qty`) to reflect backend state without full page reloads.
+
+2. **`BasePage` Explicit Synchronization**:
+   - `waitForApiResponse(urlPattern, status)`: Confirms backend AJAX requests finish before DOM assertions.
+   - `waitForSpinnerToDisappear(locator)`: Waits for checkout loading overlays to detach.
+   - `waitForNetworkIdle()`: Ensures network quiescence during heavy transitions.
+   - `waitForElementState(locator, state)`: Explicitly waits for `'visible'`, `'hidden'`, `'attached'`, or `'editable'`.
 
 ---
 

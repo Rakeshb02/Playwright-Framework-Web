@@ -83,8 +83,7 @@ export class CheckoutPage extends BasePage {
 
   async fillBillingAddress(address: BillingAddress): Promise<void> {
     await test.step('Fill Billing Address', async () => {
-      // Auto-wait for billing continue button to become visible
-      await this.billingContinueBtn.waitFor({ state: 'visible', timeout: 15000 });
+      await this.waitForElementState(this.billingContinueBtn, 'visible', 15000);
 
       // If billing address select dropdown is visible, select 'New Address' to enter the scenario address
       if (await this.billingAddressSelect.isVisible()) {
@@ -104,51 +103,57 @@ export class CheckoutPage extends BasePage {
       await this.fill(this.billingZipInput, address.postalCode, 'Billing Zip/Postal');
       await this.fill(this.billingPhoneInput, address.phoneNumber, 'Billing Phone');
       await this.click(this.billingContinueBtn, 'Billing Continue Button');
+      await this.waitForSpinnerToDisappear();
     });
   }
 
   async confirmShippingAddress(): Promise<void> {
     await test.step('Confirm Shipping Address', async () => {
-      await this.shippingContinueBtn.waitFor({ state: 'visible', timeout: 15000 });
+      await this.waitForElementState(this.shippingContinueBtn, 'visible', 15000);
       await this.click(this.shippingContinueBtn, 'Shipping Address Continue Button');
+      await this.waitForSpinnerToDisappear();
     });
   }
 
   async selectShippingMethod(): Promise<void> {
     await test.step('Select Shipping Method', async () => {
-      await this.shippingMethodContinueBtn.waitFor({ state: 'visible', timeout: 15000 });
+      await this.waitForElementState(this.shippingMethodContinueBtn, 'visible', 15000);
       await this.click(this.shippingMethodContinueBtn, 'Shipping Method Continue Button');
+      await this.waitForSpinnerToDisappear();
     });
   }
 
   async selectPaymentMethod(): Promise<void> {
     await test.step('Select Payment Method (Cash On Delivery)', async () => {
-      await this.paymentMethodContinueBtn.waitFor({ state: 'visible', timeout: 15000 });
+      await this.waitForElementState(this.paymentMethodContinueBtn, 'visible', 15000);
       await this.click(this.paymentMethodContinueBtn, 'Payment Method Continue Button');
+      await this.waitForSpinnerToDisappear();
     });
   }
 
   async confirmPaymentInfo(): Promise<void> {
     await test.step('Confirm Payment Info', async () => {
-      await this.paymentInfoContinueBtn.waitFor({ state: 'visible', timeout: 15000 });
+      await this.waitForElementState(this.paymentInfoContinueBtn, 'visible', 15000);
       await this.click(this.paymentInfoContinueBtn, 'Payment Info Continue Button');
+      await this.waitForSpinnerToDisappear();
     });
   }
 
   async confirmOrder(): Promise<void> {
     await test.step('Confirm Order', async () => {
-      await this.confirmOrderBtn.waitFor({ state: 'visible', timeout: 15000 });
+      await this.waitForElementState(this.confirmOrderBtn, 'visible', 15000);
       await this.click(this.confirmOrderBtn, 'Confirm Order Button');
+      await this.waitForSpinnerToDisappear();
     });
   }
 
   async getOrderSuccessTitle(): Promise<string> {
-    await this.orderSuccessTitle.waitFor({ state: 'visible', timeout: 20000 });
+    await this.waitForElementState(this.orderSuccessTitle, 'visible', 20000);
     return await this.getElementText(this.orderSuccessTitle);
   }
 
   async getOrderDetails(): Promise<string> {
-    await this.orderDetailsList.waitFor({ state: 'visible', timeout: 10000 });
+    await this.waitForElementState(this.orderDetailsList, 'visible', 10000);
     return await this.getElementText(this.orderDetailsList);
   }
 

@@ -16,6 +16,7 @@ test.describe('Catalog & Browsing', () => {
 
           await test.step(`Step 2: Search for "${product.keyword}" and verify results`, async () => {
             await homePage.search(product.keyword);
+            await catalogPage.waitForNetworkIdle();
             const titles = await catalogPage.getProductTitles();
             expect(titles.length).toBeGreaterThan(0);
             expect(

@@ -1,5 +1,6 @@
 import { Locator, Page } from '@playwright/test';
 import { BasePage } from './base.page';
+import { PollHelper } from '@utils/poll-helper';
 
 export class HomePage extends BasePage {
   private readonly registerLink: Locator;
@@ -29,6 +30,7 @@ export class HomePage extends BasePage {
 
   async open(): Promise<void> {
     await this.navigateTo('/');
+    await this.waitForPageLoad('domcontentloaded');
   }
 
   async clickLogin(): Promise<void> {
@@ -50,6 +52,7 @@ export class HomePage extends BasePage {
   async search(keyword: string): Promise<void> {
     await this.fill(this.searchInput, keyword, 'Search input');
     await this.click(this.searchButton, 'Search button');
+    await this.waitForPageLoad('domcontentloaded');
   }
 
   async goToBooksCategory(): Promise<void> {
@@ -62,6 +65,23 @@ export class HomePage extends BasePage {
 
   async isUserLoggedIn(): Promise<boolean> {
     return await this.isElementVisible(this.logoutLink);
+  }
+
+  async getCartQuantity(): Promise<number> {
+    const rawText = await this.getElementText(this.cartQtyBadge);
+    const match = rawText.match(/\d+/);
+    return match ? parseInt(match[0], 10) : 0;
+  }
+
+  async waitForCartQuantity(expectedQty: number, timeoutMs = 10000): Promise<void> {
+    await PollHelper.pollCondition(
+      async () => (await this.getCartQuantity()) === expectedQty,
+      {
+        timeoutMs,
+        intervalMs: 500,
+        message: `Header cart quantity did not reach expected count of ${expectedQty}`,
+      }
+    );
   }
 
   // --- Locator Accessors for Web-First Assertions ---

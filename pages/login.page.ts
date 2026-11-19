@@ -21,6 +21,7 @@ export class LoginPage extends BasePage {
 
   async open(): Promise<void> {
     await this.navigateTo('/login');
+    await this.waitForPageLoad('domcontentloaded');
   }
 
   async login(email: string, password: string, rememberMe = true): Promise<void> {
@@ -30,6 +31,7 @@ export class LoginPage extends BasePage {
       await this.check(this.rememberMeCheckbox, 'Remember Me Checkbox');
     }
     await this.click(this.loginButton, 'Log in button');
+    await this.waitForPageLoad('domcontentloaded');
   }
 
   async getErrorMessage(): Promise<string> {
