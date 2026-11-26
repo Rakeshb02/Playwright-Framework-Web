@@ -7,11 +7,14 @@ export class HomePage extends BasePage {
   private readonly loginLink: Locator;
   private readonly logoutLink: Locator;
   private readonly cartLink: Locator;
+  private readonly wishlistLink: Locator;
   private readonly accountLink: Locator;
   private readonly searchInput: Locator;
   private readonly searchButton: Locator;
+  private readonly topMenu: Locator;
   private readonly booksMenuLink: Locator;
   private readonly cartQtyBadge: Locator;
+  private readonly wishlistQtyBadge: Locator;
 
   constructor(page: Page) {
     super(page);
@@ -19,11 +22,14 @@ export class HomePage extends BasePage {
     this.loginLink = page.getByRole('link', { name: 'Log in' });
     this.logoutLink = page.getByRole('link', { name: 'Log out' });
     this.cartLink = page.locator('#topcartlink').getByRole('link', { name: /Shopping cart/i });
+    this.wishlistLink = page.locator('.header-links').getByRole('link', { name: /Wishlist/i });
     this.accountLink = page.locator('.header-links a.account');
     this.searchInput = page.locator('#small-searchterms');
     this.searchButton = page.locator('.search-box').getByRole('button', { name: 'Search' });
-    this.booksMenuLink = page.locator('.top-menu').getByRole('link', { name: 'Books', exact: true });
+    this.topMenu = page.locator('.top-menu');
+    this.booksMenuLink = this.topMenu.getByRole('link', { name: 'Books', exact: true });
     this.cartQtyBadge = page.locator('#topcartlink .cart-qty');
+    this.wishlistQtyBadge = page.locator('.header-links .wishlist-qty');
   }
 
   // --- Actions ---
@@ -45,6 +51,10 @@ export class HomePage extends BasePage {
     await this.click(this.cartLink, 'Shopping Cart Link');
   }
 
+  async clickWishlist(): Promise<void> {
+    await this.click(this.wishlistLink, 'Wishlist Link');
+  }
+
   async clickLogout(): Promise<void> {
     await this.click(this.logoutLink, 'Logout Link');
   }
@@ -57,6 +67,17 @@ export class HomePage extends BasePage {
 
   async goToBooksCategory(): Promise<void> {
     await this.click(this.booksMenuLink, 'Books menu category');
+  }
+
+  async goToCategory(categoryName: string): Promise<void> {
+    await this.click(
+      this.topMenu.getByRole('link', { name: categoryName, exact: true }),
+      `${categoryName} menu category`
+    );
+  }
+
+  async getWishlistCountText(): Promise<string> {
+    return await this.getElementText(this.wishlistQtyBadge);
   }
 
   async getLoggedInUserEmail(): Promise<string> {
@@ -92,5 +113,13 @@ export class HomePage extends BasePage {
 
   getLogoutLink(): Locator {
     return this.logoutLink;
+  }
+
+  getWishlistLink(): Locator {
+    return this.wishlistLink;
+  }
+
+  getWishlistQtyLocator(): Locator {
+    return this.wishlistQtyBadge;
   }
 }

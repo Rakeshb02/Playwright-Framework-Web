@@ -1,0 +1,45 @@
+{
+  "expectedNotificationText": "The product has been added to your wishlist",
+  "expectedEmptyMessage": "The wishlist is empty!",
+  "expectedEmptyCountText": "(0)",
+  "expectedWishlistPageTitle": "Wishlist",
+  "scenarios": [
+    {
+      "id": "wishlist_single_add_remove",
+      "tags": ["smoke", "regression", "wishlist"],
+      "description": "Add a single product to the wishlist and remove it to verify empty wishlist state.",
+      "products": [
+        {
+          "name": "Black & White Diamond Heart",
+          "category": "Jewelry",
+          "expectedWishlistCountAfterAdd": "(1)"
+        }
+      ],
+      "partialRemoval": null,
+      "finalRemovalProducts": ["Black & White Diamond Heart"]
+    },
+    {
+      "id": "wishlist_multi_add_partial_and_full_remove",
+      "tags": ["regression", "wishlist"],
+      "description": "Add multiple products to the wishlist, remove one item, verify remaining item and count, then remove remaining items.",
+      "products": [
+        {
+          "name": "Black & White Diamond Heart",
+          "category": "Jewelry",
+          "expectedWishlistCountAfterAdd": "(1)"
+        },
+        {
+          "name": "3rd Album",
+          "category": "Digital downloads",
+          "expectedWishlistCountAfterAdd": "(2)"
+        }
+      ],
+      "partialRemoval": {
+        "removeProduct": "Black & White Diamond Heart",
+        "remainingProducts": ["3rd Album"],
+        "expectedWishlistCountAfterRemoval": "(1)"
+      },
+      "finalRemovalProducts": ["3rd Album"]
+    }
+  ]
+}
