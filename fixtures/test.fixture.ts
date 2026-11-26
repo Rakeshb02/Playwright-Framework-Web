@@ -6,6 +6,7 @@ import { RegisterPage } from '@pages/register.page';
 import { CatalogPage } from '@pages/catalog.page';
 import { CartPage } from '@pages/cart.page';
 import { CheckoutPage } from '@pages/checkout.page';
+import { WishlistPage } from '@pages/wishlist.page';
 import { allureDetails, AllureMetadata } from '@utils/allure-helper';
 
 type Pages = {
@@ -15,6 +16,7 @@ type Pages = {
   catalogPage: CatalogPage;
   cartPage: CartPage;
   checkoutPage: CheckoutPage;
+  wishlistPage: WishlistPage;
 };
 
 export const test = baseTest.extend<Pages & { autoAllure: void }>({
@@ -74,6 +76,9 @@ export const test = baseTest.extend<Pages & { autoAllure: void }>({
   },
   checkoutPage: async ({ page }, use) => {
     await use(new CheckoutPage(page));
+  },
+  wishlistPage: async ({ page }, use) => {
+    await use(new WishlistPage(page));
   },
 });
 
